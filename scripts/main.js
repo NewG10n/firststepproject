@@ -26,10 +26,7 @@ function setupMenu(menuElement) {
 
 function setupLoading(loadElement, loadStep, loadMax) {
   loadElement.addEventListener("click", function loadElements(event) {
-    function showLoader() {
-      this.innerHTML =
-        '<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>';
-    }
+    toggleAnimation(this);
 
     setTimeout(() => {
       const menuContent = this.parentElement.querySelector(".menu-content");
@@ -43,6 +40,8 @@ function setupLoading(loadElement, loadStep, loadMax) {
         menuContent.lastElementChild.after(newElement);
       }
 
+      toggleAnimation(this);
+
       if (menuContent.childElementCount >= loadMax) {
         this.remove();
       }
@@ -50,6 +49,11 @@ function setupLoading(loadElement, loadStep, loadMax) {
 
     event.preventDefault();
   });
+}
+
+function toggleAnimation(animatedElement) {
+  animatedElement.querySelector(".lds-ellipsis").classList.toggle("hidden");
+  animatedElement.querySelector(".btn-load-text").classList.toggle("hidden");
 }
 
 document.querySelectorAll(".menu").forEach((element) => setupMenu(element));
