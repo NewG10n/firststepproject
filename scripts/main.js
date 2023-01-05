@@ -1,27 +1,32 @@
 "use strict";
 
 function setupMenu(menuElement) {
-  for (let element of menuElement.children) {
-    element.addEventListener("click", function setActive() {
-      for (let element of this.parentElement.children) {
-        element.classList.remove("active");
-      }
+  menuElement.addEventListener("click", function setActive(event) {
+    const target = event.target.closest(".menu-item") || event.target;
+    if (!target.classList.contains("menu-item")) return;
 
-      this.classList.add("active");
+    const activeMenuItem = this.querySelector(".active");
+    const activeMenuItemName = target.dataset.itemName;
 
-      for (let element of menuElement.parentElement.querySelector(
-        ".menu-content"
-      ).children) {
-        if (this.dataset.itemName.includes(element.dataset.itemContent)) {
-          element.classList.remove("hidden");
-          element.classList.add("visible");
-        } else {
-          element.classList.remove("visible");
-          element.classList.add("hidden");
-        }
+    const menuContent = this.parentElement.querySelector(".menu-content");
+
+    if (activeMenuItem !== target) {
+      activeMenuItem.classList.remove("active");
+      target.classList.add("active");
+    }
+
+    for (let element of menuContent.children) {
+      const menuContentName = element.dataset.itemContent;
+
+      if (activeMenuItemName.includes(menuContentName)) {
+        element.classList.remove("hidden");
+        element.classList.add("visible");
+      } else {
+        element.classList.remove("visible");
+        element.classList.add("hidden");
       }
-    });
-  }
+    }
+  });
 }
 
 function setupLoading(loadElement, loadStep, loadMax) {
