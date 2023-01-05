@@ -18,13 +18,9 @@ function setupMenu(menuElement) {
     for (let element of menuContent.children) {
       const menuContentName = element.dataset.itemContent;
 
-      if (activeMenuItemName.includes(menuContentName)) {
-        element.classList.remove("hidden");
-        element.classList.add("visible");
-      } else {
-        element.classList.remove("visible");
-        element.classList.add("hidden");
-      }
+      activeMenuItemName.includes(menuContentName)
+        ? element.classList.remove("hidden")
+        : element.classList.add("hidden");
     }
   });
 }
