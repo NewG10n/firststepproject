@@ -2,6 +2,31 @@
 
 function setupMenu(menuElement) {
   menuElement.addEventListener("click", function setActive(event) {
+    const target = event.target.closest(".menu-item") || event.target;
+    if (!target.classList.contains("menu-item")) return;
+
+    const activeMenuItem = this.querySelector(".active");
+    const activeMenuItemName = target.dataset.itemName;
+
+    const menuContent = this.parentElement.querySelector(".menu-content");
+
+    if (activeMenuItem !== target) {
+      activeMenuItem.classList.remove("active");
+      target.classList.add("active");
+    }
+
+    for (let element of menuContent.children) {
+      const menuContentName = element.dataset.itemContent;
+
+      activeMenuItemName.includes(menuContentName)
+        ? element.classList.remove("hidden")
+        : element.classList.add("hidden");
+    }
+  });
+}
+
+function setupSlideMenu(menuElement) {
+  menuElement.addEventListener("click", function setSlide(event) {
     const target =
       event.target.closest(".menu-item") ||
       event.target.closest(".menu-btn") ||
@@ -16,7 +41,6 @@ function setupMenu(menuElement) {
       return;
 
     const activeMenuItem = this.querySelector(".menu-item.active");
-
     const menuContent = this.parentElement.querySelector(".menu-content");
 
     if (target.classList.contains("menu-btn")) {
@@ -26,29 +50,23 @@ function setupMenu(menuElement) {
       ) {
         activeMenuItem.classList.remove("active");
         activeMenuItem.previousElementSibling.classList.add("active");
+        menuContent.scrollLeft -=
+          menuContent.querySelector(".people-desc").clientWidth;
       } else if (
         target.classList.contains("btn-next") &&
         activeMenuItem.nextElementSibling.classList.contains("menu-item")
       ) {
         activeMenuItem.classList.remove("active");
         activeMenuItem.nextElementSibling.classList.add("active");
+        menuContent.scrollLeft +=
+          menuContent.querySelector(".people-desc").clientWidth;
       } else return;
+      return;
     } else {
       if (activeMenuItem !== target) {
         activeMenuItem.classList.remove("active");
         target.classList.add("active");
       }
-    }
-
-    const activeMenuItemName =
-      this.querySelector(".menu-item.active").dataset.itemName;
-
-    for (let element of menuContent.children) {
-      const menuContentName = element.dataset.itemContent;
-
-      activeMenuItemName.includes(menuContentName)
-        ? element.classList.remove("hidden")
-        : element.classList.add("hidden");
     }
   });
 }
@@ -86,6 +104,9 @@ function toggleAnimation(animatedElement) {
 }
 
 document.querySelectorAll(".menu").forEach((element) => setupMenu(element));
+document
+  .querySelectorAll(".menu.slide")
+  .forEach((element) => setupSlideMenu(element));
 
 document
   .querySelectorAll(".btn-load")
