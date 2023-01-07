@@ -40,8 +40,10 @@ function setupSlideMenu(menuElement) {
     )
       return;
 
-    const activeMenuItem = this.querySelector(".menu-item.active");
+    const menuItems = this.querySelectorAll(".menu-item");
     const menuContent = this.parentElement.querySelector(".menu-content");
+
+    let activeMenuItem = this.querySelector(".menu-item.active");
 
     if (target.classList.contains("menu-btn")) {
       if (
@@ -58,6 +60,7 @@ function setupSlideMenu(menuElement) {
       ) {
         activeMenuItem.classList.remove("active");
         activeMenuItem.nextElementSibling.classList.add("active");
+
         menuContent.scrollLeft +=
           menuContent.querySelector(".people-desc").clientWidth;
       } else return;
@@ -66,6 +69,15 @@ function setupSlideMenu(menuElement) {
       if (activeMenuItem !== target) {
         activeMenuItem.classList.remove("active");
         target.classList.add("active");
+
+        activeMenuItem = target;
+
+        const activeMenuItemIndex =
+          Array.from(menuItems).indexOf(activeMenuItem);
+
+        menuContent.scrollLeft =
+          menuContent.querySelector(".people-desc").clientWidth *
+          activeMenuItemIndex;
       }
     }
   });
@@ -105,7 +117,7 @@ function toggleAnimation(animatedElement) {
 
 document.querySelectorAll(".menu").forEach((element) => setupMenu(element));
 document
-  .querySelectorAll(".menu.slide")
+  .querySelectorAll(".slide-menu")
   .forEach((element) => setupSlideMenu(element));
 
 document

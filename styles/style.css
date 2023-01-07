@@ -801,6 +801,7 @@ h6 {
 }
 
 .people-menu-item {
+  cursor: pointer;
   flex-grow: 0;
   width: 80px;
   height: 80px;
@@ -813,13 +814,8 @@ h6 {
   -o-border-radius: 50%;
 }
 
-.people-menu-item:hover {
-  cursor: pointer;
-  transform: translateY(-10px);
-  -webkit-transform: translateY(-10px);
-  -moz-transform: translateY(-10px);
-  -ms-transform: translateY(-10px);
-  -o-transform: translateY(-10px);
+.people-menu-item:not(.active):hover {
+  border: 2px solid rgba(31, 218, 181, 0.5);
 }
 
 .people-menu-item.active:not(hover) {
