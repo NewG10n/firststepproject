@@ -873,6 +873,7 @@ h6 {
   height: 260px;
   float: left;
   margin-bottom: 20px;
+  overflow: hidden;
 }
 
 .grid-item--height2 {
@@ -887,6 +888,45 @@ h6 {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  position: relative;
+}
+
+.grid-item-btns {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14%;
+}
+
+.grid-item:hover > .grid-item-btns,
+.inner-grid-item:hover > .grid-item-btns {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.search-img-btn,
+.expand-img-btn {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #14b9d5;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-img-btn > img,
+.expand-img-btn > img {
+  width: 40%;
+}
+
+.search-img-btn:hover,
+.expand-img-btn:hover {
+  background-color: #14b9d5;
 }
 
 .inner-grid {
@@ -897,6 +937,16 @@ h6 {
   grid-template-rows: repeat(4, 1fr);
   grid-column-gap: 4px;
   grid-row-gap: 4px;
+}
+
+.inner-grid-item {
+  position: relative;
+}
+
+.inner-grid-item .search-img-btn,
+.inner-grid-item .expand-img-btn {
+  width: 25px;
+  height: 25px;
 }
 
 .inner-grid-item > img {
