@@ -183,14 +183,3 @@ let msnry = new Masonry(".grid", {
   transitionDuration: "0.2s",
   initLayout: true,
 });
-
-let innerMsnry = new Masonry(".inner-grid", {
-  itemSelector: ".inner-grid-item",
-  columnWidth: ".inner-grid-sizer",
-  gutter: ".inner-gutter-sizer",
-  percentPosition: true,
-  transitionDuration: "0.2s",
-  initLayout: true,
-});
-
-// msnry.layout();
