@@ -42,6 +42,7 @@ function setupSlideMenu(menuElement) {
 
     const menuItems = this.querySelectorAll(".menu-item");
     const menuContent = this.parentElement.querySelector(".menu-content");
+    const slideWidth = menuContent.querySelector(".people-desc").clientWidth;
 
     let activeMenuItem = this.querySelector(".menu-item.active");
 
@@ -52,17 +53,14 @@ function setupSlideMenu(menuElement) {
       ) {
         activeMenuItem.classList.remove("active");
         activeMenuItem.previousElementSibling.classList.add("active");
-        menuContent.scrollLeft -=
-          menuContent.querySelector(".people-desc").clientWidth;
+        menuContent.scrollLeft -= slideWidth;
       } else if (
         target.classList.contains("btn-next") &&
         activeMenuItem.nextElementSibling.classList.contains("menu-item")
       ) {
         activeMenuItem.classList.remove("active");
         activeMenuItem.nextElementSibling.classList.add("active");
-
-        menuContent.scrollLeft +=
-          menuContent.querySelector(".people-desc").clientWidth;
+        menuContent.scrollLeft += slideWidth;
       } else return;
       return;
     } else {
@@ -75,9 +73,7 @@ function setupSlideMenu(menuElement) {
         const activeMenuItemIndex =
           Array.from(menuItems).indexOf(activeMenuItem);
 
-        menuContent.scrollLeft =
-          menuContent.querySelector(".people-desc").clientWidth *
-          activeMenuItemIndex;
+        menuContent.scrollLeft = slideWidth * activeMenuItemIndex;
       }
     }
   });

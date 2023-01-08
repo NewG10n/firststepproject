@@ -800,6 +800,12 @@ h6 {
     hue-rotate(93deg) brightness(103%) contrast(103%);
 }
 
+.btn-prev:active,
+.btn-next:active {
+  background-color: #0f6554;
+  border-color: #0f6554;
+}
+
 .people-menu-item {
   cursor: pointer;
   flex-grow: 0;
