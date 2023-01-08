@@ -941,6 +941,7 @@ h6 {
 
 .inner-grid-item {
   position: relative;
+  overflow: hidden;
 }
 
 .inner-grid-item .search-img-btn,
