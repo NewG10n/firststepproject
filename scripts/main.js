@@ -125,3 +125,15 @@ document
       element.parentElement.querySelector(".menu-content").childElementCount * 3
     )
   );
+
+let msnry = new Masonry(".grid", {
+  itemSelector: ".grid-item",
+  columnWidth: ".grid-sizer",
+  gutter: ".gutter-sizer",
+  percentPosition: true,
+  horizontalOrder: true,
+  transitionDuration: "0.2s",
+  initLayout: true,
+});
+
+// msnry.layout();
