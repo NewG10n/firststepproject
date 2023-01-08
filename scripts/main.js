@@ -111,6 +111,44 @@ function toggleAnimation(animatedElement) {
   animatedElement.querySelector(".btn-load-text").classList.toggle("hidden");
 }
 
+function setupMasonryLoading(loadElement, loadStep, loadMax) {
+  loadElement.addEventListener("click", function loadElements(event) {
+    toggleAnimation(this);
+
+    setTimeout(() => {
+      const masonryContent = this.parentElement.querySelector(".grid");
+      console.log(loadMax);
+      for (let i = 0; i < loadStep; i++) {
+        let newElement = masonryContent
+          .querySelectorAll(".grid-item")
+          [Math.floor(Math.random() * (loadStep - 1))].cloneNode(true);
+        newElement.style = "";
+        masonryContent.lastElementChild.after(newElement);
+      }
+
+      toggleAnimation(this);
+
+      setTimeout(() => {
+        new Masonry(".grid", {
+          itemSelector: ".grid-item",
+          columnWidth: ".grid-sizer",
+          gutter: ".gutter-sizer",
+          percentPosition: true,
+          horizontalOrder: true,
+          transitionDuration: "0.2s",
+          initLayout: true,
+        });
+      }, 1);
+
+      if (masonryContent.querySelectorAll(".grid-item").length >= loadMax) {
+        this.remove();
+      }
+    }, 1000);
+
+    event.preventDefault();
+  });
+}
+
 document.querySelectorAll(".menu").forEach((element) => setupMenu(element));
 document
   .querySelectorAll(".slide-menu")
@@ -126,12 +164,31 @@ document
     )
   );
 
+document
+  .querySelectorAll(".btn-masonry-load")
+  .forEach((element) =>
+    setupMasonryLoading(
+      element,
+      element.parentElement.querySelectorAll(".grid-item").length,
+      element.parentElement.querySelectorAll(".grid-item").length * 2
+    )
+  );
+
 let msnry = new Masonry(".grid", {
   itemSelector: ".grid-item",
   columnWidth: ".grid-sizer",
   gutter: ".gutter-sizer",
   percentPosition: true,
   horizontalOrder: true,
+  transitionDuration: "0.2s",
+  initLayout: true,
+});
+
+let innerMsnry = new Masonry(".inner-grid", {
+  itemSelector: ".inner-grid-item",
+  columnWidth: ".inner-grid-sizer",
+  gutter: ".inner-gutter-sizer",
+  percentPosition: true,
   transitionDuration: "0.2s",
   initLayout: true,
 });
