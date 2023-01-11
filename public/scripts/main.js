@@ -53,14 +53,23 @@ function setupSlideMenu(menuElement) {
       ) {
         activeMenuItem.classList.remove("active");
         activeMenuItem.previousElementSibling.classList.add("active");
-        menuContent.scrollLeft -= slideWidth;
+        activeMenuItem = this.querySelector(".menu-item.active");
+        console.log(activeMenuItem);
+        const activeMenuItemIndex =
+          Array.from(menuItems).indexOf(activeMenuItem);
+
+        menuContent.scrollLeft = slideWidth * activeMenuItemIndex;
       } else if (
         target.classList.contains("btn-next") &&
         activeMenuItem.nextElementSibling.classList.contains("menu-item")
       ) {
         activeMenuItem.classList.remove("active");
         activeMenuItem.nextElementSibling.classList.add("active");
-        menuContent.scrollLeft += slideWidth;
+        activeMenuItem = this.querySelector(".menu-item.active");
+        const activeMenuItemIndex =
+          Array.from(menuItems).indexOf(activeMenuItem);
+
+        menuContent.scrollLeft = slideWidth * activeMenuItemIndex;
       } else return;
       return;
     } else {
