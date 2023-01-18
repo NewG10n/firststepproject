@@ -54,11 +54,6 @@ function setupSlideMenu(menuElement) {
         activeMenuItem.classList.remove("active");
         activeMenuItem.previousElementSibling.classList.add("active");
         activeMenuItem = this.querySelector(".menu-item.active");
-        console.log(activeMenuItem);
-        const activeMenuItemIndex =
-          Array.from(menuItems).indexOf(activeMenuItem);
-
-        menuContent.scrollLeft = slideWidth * activeMenuItemIndex;
       } else if (
         target.classList.contains("btn-next") &&
         activeMenuItem.nextElementSibling.classList.contains("menu-item")
@@ -66,25 +61,16 @@ function setupSlideMenu(menuElement) {
         activeMenuItem.classList.remove("active");
         activeMenuItem.nextElementSibling.classList.add("active");
         activeMenuItem = this.querySelector(".menu-item.active");
-        const activeMenuItemIndex =
-          Array.from(menuItems).indexOf(activeMenuItem);
-
-        menuContent.scrollLeft = slideWidth * activeMenuItemIndex;
-      } else return;
-      return;
-    } else {
-      if (activeMenuItem !== target) {
-        activeMenuItem.classList.remove("active");
-        target.classList.add("active");
-
-        activeMenuItem = target;
-
-        const activeMenuItemIndex =
-          Array.from(menuItems).indexOf(activeMenuItem);
-
-        menuContent.scrollLeft = slideWidth * activeMenuItemIndex;
       }
+    } else if (activeMenuItem !== target) {
+      activeMenuItem.classList.remove("active");
+      target.classList.add("active");
+
+      activeMenuItem = target;
     }
+
+    const activeMenuItemIndex = Array.from(menuItems).indexOf(activeMenuItem);
+    menuContent.scrollLeft = slideWidth * activeMenuItemIndex;
   });
 }
 
